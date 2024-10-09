@@ -10,10 +10,10 @@ for i in range(1,N+1):
 
 dr = [-1, 0, 1, 0]
 dc = [0, 1, 0, -1]
-damage = [0]*(N+1)
 def bfs(start, d):
     q = []
     visited = set()
+    damage = [0]*(N+1)
 
     q.append(start)
     visited.add(start)
@@ -22,8 +22,8 @@ def bfs(start, d):
         cur = q.pop(0)
         sr,sc,sh,sw,sk = units[cur]
         nr, nc = sr+dr[d], sc+dc[d]
-        for i in range(nr, nr+h):
-            for j in range(nc, nc+w):
+        for i in range(nr, nr+sh):
+            for j in range(nc, nc+sw):
                 if arr[i][j] == 2:
                     return
                 if arr[i][j] == 1:
@@ -48,7 +48,8 @@ def bfs(start, d):
 
 for _ in range(Q):
     i,d = map(int, input().split())
-    bfs(i,d) #기사 이동 + 데미지 감소
+    if i in units:
+        bfs(i,d) #기사 이동 + 데미지 감소
 
 ans = 0
 for idx in units:
