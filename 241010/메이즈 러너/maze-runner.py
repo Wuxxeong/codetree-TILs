@@ -34,8 +34,10 @@ def rotate(arr, exit, sr, sc, w,units): #90도로 회전, 내구도 모두 -1씩
             if narr[sr+i][sc+j]==-1:
                 new_exit = [sr+i,sc+j]
             if narr[sr+i][sc+j]>=10: #유닛이면 유닛도 회전
-                idx1 = units.index([sr+w-j-1,sc+i])
-                units[idx1] = [sr+i,sc+j]
+                old_position = [sr+w-j-1,sc+i]
+                if old_position in units:
+                    idx1 = units.index(old_position)
+                    units[idx1] = [sr+i,sc+j]
 
     return narr, new_exit, new_units
 
