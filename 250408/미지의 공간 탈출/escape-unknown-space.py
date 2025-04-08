@@ -13,7 +13,7 @@ def find_2d_end():
 
 def find_3d_base():
     for i in range(N):
-        for j in range(M):
+        for j in range(N):
             if arr[i][j]==3:
                 return i,j
 def find_3d_end_2d_start(): #하나씩 나누어서 생각해볼 수 있다.###############3
@@ -30,6 +30,7 @@ def find_3d_end_2d_start(): #하나씩 나누어서 생각해볼 수 있다.####
                 return 2, M-1, j-bj, i+1, j
             elif arr[i-1][j]==0: #북
                 return 3, M-1,  (M-1)-(j-bj), i-1, j
+    return -1
 def bfs_3d(sk,si,sj,ek,ei,ej):
     left_nxt = {0:2,2:1,1:3,3:0,4:1}
     right_nxt = {0:3,3:1,1:2,2:0,4:0}
@@ -69,7 +70,7 @@ def bfs_3d(sk,si,sj,ek,ei,ej):
                 q.append((nk,ni,nj))
                 v[nk][ni][nj] = v[ck][ci][cj]+1
     return -1
-    
+
 def bfs_2d(v,dist,si,sj,ei,ej):
     q = []
     q.append((si,sj))
