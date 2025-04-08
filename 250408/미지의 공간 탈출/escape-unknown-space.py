@@ -68,8 +68,8 @@ def bfs_3d(sk,si,sj,ek,ei,ej):
             if arr3[nk][ni][nj]==0 and v[nk][ni][nj]==0: #길이고, 미방문이면
                 q.append((nk,ni,nj))
                 v[nk][ni][nj] = v[ck][ci][cj]+1
-
-
+    return -1
+    
 def bfs_2d(v,dist,si,sj,ei,ej):
     q = []
     q.append((si,sj))
