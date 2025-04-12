@@ -24,7 +24,7 @@ def get_chain(i, d, king_pos):
     q = [i]
     visited.add(i)
     while q:
-        curr = q.pop()
+        curr = q.pop(0)
         r, c, h, w, k = king[curr]
         for nr in range(r, r+h):
             for nc in range(c, c+w):
