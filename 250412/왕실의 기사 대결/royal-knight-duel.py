@@ -60,7 +60,7 @@ def can_move(chain, d):
         for i in range(r, r+h):
             for j in range(c, c+w):
                 ni, nj = i+di[d], j+dj[d]
-                if arr[ni][nj] >= 2:  # 벽
+                if arr[ni][nj] == 2:  # 벽
                     return False
     return True
 
