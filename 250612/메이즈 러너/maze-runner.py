@@ -9,6 +9,13 @@ ei,ej = list(map(int,input().split()))
 ei,ej = ei-1, ej-1
 arr[ei][ej]=-11
 
+# 출구 탐색을 함수로 분리
+def find_exit(arr):
+    for i in range(N):
+        for j in range(N):
+            if arr[i][j] == -11:
+                return i, j
+
 def find_units(arr):
     units = []
     for i in range(N):
@@ -17,10 +24,9 @@ def find_units(arr):
                 units.append((i, j))
     return units
 
-def move(arr,ei,ej):
+def move(arr,ei,ej): # 동시 이동!!
     mv_cnt = 0
     units = find_units(arr)
-
     narr = [x[:] for x in arr]
     for ci,cj in units:
         dist = abs(ci-ei)+abs(cj-ej)
@@ -28,12 +34,12 @@ def move(arr,ei,ej):
             ni,nj = ci+di,cj+dj
             if (ni,nj)==(ei,ej):
                 mv_cnt+=arr[ci][cj]
-                narr[ci][cj]=0
+                narr[ci][cj]-=arr[ci][cj]
                 break
-            elif 0<=ni<N and 0<=nj<N and narr[ni][nj]<=0 and dist>abs(ni-ei)+abs(nj-ej):
+            elif 0<=ni<N and 0<=nj<N and arr[ni][nj]<=0 and dist>abs(ni-ei)+abs(nj-ej):
                 mv_cnt+=arr[ci][cj]
                 narr[ni][nj]+=arr[ci][cj]
-                narr[ci][cj]=0
+                narr[ci][cj]-=arr[ci][cj]
                 break
     return mv_cnt, narr
 
@@ -59,7 +65,7 @@ def rotate(arr,si,sj,w): # 내구도 1 감소
             if -11<=arr[w-j-1+si][i+sj]<=0:
                 narr[i+si][j+sj] = arr[w-j-1+si][i+sj]
             else:
-                narr[i + si][j + sj] = arr[w - j - 1 + si][i + sj]-1
+                narr[i+si][j+sj] = arr[w-j-1+si][i+sj]-1
 
     return narr
 
@@ -67,25 +73,38 @@ def rotate(arr,si,sj,w): # 내구도 1 감소
 #     print(x)
 
 cnt = 0 # 이동 횟수
+#####
+print("초기 상황")
+for x in arr:
+    print(x)
+######
 for k in range(K):
+    print(k+1,"초")
     # [1] 참가자 이동
     t, arr = move(arr,ei,ej)
     cnt += t
     u = find_units(arr)
     if len(u)==0:
         break
+    #####
+    print("참가자 이동 후")
+    for x in arr:
+        print(x)
+    ######
     # [2] 정사각형 설정
     sr,sc,w = make_rectangle()
-
+    print("sr,sc,w =>", sr,sc,w)
     # [3] 90도 회전
     narr = [x[:] for x in arr]
     narr = rotate(narr,sr,sc,w)
     arr = narr
+    #####
+    print("90 회전 후")
+    for x in arr:
+        print(x)
+    ######
     # [4] 출구 좌표 갱신
-    for i in range(N):
-        for j in range(N):
-            if arr[i][j]==-11:
-                ei,ej = i,j
-                break
+    ei,ej = find_exit(arr)
+    print()
 print(-cnt)
 print(ei+1,ej+1)
