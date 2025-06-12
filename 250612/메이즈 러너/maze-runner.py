@@ -48,7 +48,6 @@ def move(arr,ei,ej):
 
     narr = [x[:] for x in arr]
     for ci,cj in units:
-
         dist = abs(ci-ei)+abs(cj-ej)
         for di,dj in ((-1,0),(1,0),(0,-1),(0,1)):
             ni,nj = ci+di,cj+dj
@@ -60,7 +59,6 @@ def move(arr,ei,ej):
                 mv_cnt+=narr[ci][cj]
                 narr[ni][nj]+=narr[ci][cj]
                 narr[ci][cj]=0
-
                 break
     return mv_cnt, narr
 
@@ -77,7 +75,7 @@ def make_rectangle():
                             isAny = True
                 if isExit and isAny:
                     return sr,sc,w
-    return -1
+    return -1,-1,-1
 
 def rotate(arr,si,sj,w): # 내구도 1 감소
     narr = [x[:] for x in arr]
