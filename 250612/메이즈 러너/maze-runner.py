@@ -73,38 +73,22 @@ def rotate(arr,si,sj,w): # 내구도 1 감소
 #     print(x)
 
 cnt = 0 # 이동 횟수
-#####
-print("초기 상황")
-for x in arr:
-    print(x)
-######
 for k in range(K):
-    print(k+1,"초")
     # [1] 참가자 이동
     t, arr = move(arr,ei,ej)
     cnt += t
     u = find_units(arr)
     if len(u)==0:
         break
-    #####
-    print("참가자 이동 후")
-    for x in arr:
-        print(x)
-    ######
+
     # [2] 정사각형 설정
     sr,sc,w = make_rectangle()
-    print("sr,sc,w =>", sr,sc,w)
     # [3] 90도 회전
     narr = [x[:] for x in arr]
     narr = rotate(narr,sr,sc,w)
     arr = narr
-    #####
-    print("90 회전 후")
-    for x in arr:
-        print(x)
-    ######
+
     # [4] 출구 좌표 갱신
     ei,ej = find_exit(arr)
-    print()
 print(-cnt)
 print(ei+1,ej+1)
