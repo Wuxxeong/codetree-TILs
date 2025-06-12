@@ -1,26 +1,3 @@
-'''
-0인 공간으로만 이동 가능
-0==빈칸, 1==장애물
-
-초기 타임머신의 위치 == 2
-시간의 벽위치 == 3
-탈출구 == 4 -> 2차원
-
-출구는 한개
-
-2차원에서 시간 이상 현상
-- (r,c)에서 시작 -> 매 v의 배수 턴마다 d 방향으로 한 칸씩 확산 d는 동서남북 순
-- 빈공간으로만 확산. 확산 불가시 멈춤.
-- 서로 독립적이며 동시에 확산
-
-타임머신
-- 시간 이상 현상이 이루어지고 난 이후에 타임머신이 작동함.-> 미리 시간 이상 현상
-- 매 턴마다 상하좌우 한칸 이동
-- 장애물과 시간 이상현상을 피해 탈출구까지 도달.
-
-출력 : 탈출구까지 이동하는 데 필요한 최소 시간. 탈출 불가시 -1
-'''
-
 
 def find_3D_base():
     for i in range(N):
@@ -126,14 +103,13 @@ si3,sj3 = find_3D_start()
 di,dj = [0,0,1,-1],[1,-1,0,0] #동서남북
 for r,c,d,v in times:
     ci,cj = r,c
-    for t in range(N):
-        if 0<=ci<N and 0<=cj<N and arr2[ci][cj]==0:
+    for t in range(N*N):
+        if 0<=ci<N and 0<=cj<N and (arr2[ci][cj]==0 or arr2[ci][cj]==1):
             if (ci,cj)==(ei2,ej2):
                 break
             arr2[ci][cj] = v*t
             ci,cj = ci+di[d],cj+dj[d]
     arr2[r][c]=1
-
 
 # [2] 3D 출발점 -> 2D 출발점 최단시간
 ans = 0
@@ -141,7 +117,7 @@ t3 = bfs_3D(si3,sj3,ei3,ej3,dd)
 ans+=t3
 # [3] 2D 출발점 -> 출구 최단시간
 t2 = bfs_2D(si2,sj2,ei2,ej2,t3+1)
-if t2==-1: #탈출 불가능시
+if t2==-1 or t3==-1: #탈출 불가능시
     ans=-1
 else:
     ans=t2
