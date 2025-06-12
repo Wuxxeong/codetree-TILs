@@ -104,7 +104,7 @@ di,dj = [0,0,1,-1],[1,-1,0,0] #동서남북
 for r,c,d,v in times:
     ci,cj = r,c
     for t in range(N*N):
-        if 0<=ci<N and 0<=cj<N and (arr2[ci][cj]==0 or arr2[ci][cj]==1):
+        if 0<=ci<N and 0<=cj<N and (arr2[ci][cj]==0 or arr2[r][c]==1):
             if (ci,cj)==(ei2,ej2):
                 break
             arr2[ci][cj] = v*t
