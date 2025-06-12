@@ -64,11 +64,11 @@ def move(arr,ei,ej):
 
 def make_rectangle():
     for w in range(2,N+1):
-        for sr in range(N-w):
-            for sc in range(N-w):
+        for sr in range(N-w+1):
+            for sc in range(N-w+1):
                 isExit, isAny = False,False
-                for r in range(sr,sr+w+1):
-                    for c in range(sc,sc+w+1):
+                for r in range(sr,sr+w):
+                    for c in range(sc,sc+w):
                         if arr[r][c]==-11:
                             isExit = True
                         if -10<=arr[r][c]<=-1:
