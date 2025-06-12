@@ -67,15 +67,15 @@ def make_rectangle():
         for sr in range(N-w):
             for sc in range(N-w):
                 isExit, isAny = False,False
-                for r in range(sr,sr+w):
-                    for c in range(sc,sc+w):
+                for r in range(sr,sr+w+1):
+                    for c in range(sc,sc+w+1):
                         if arr[r][c]==-11:
                             isExit = True
                         if -10<=arr[r][c]<=-1:
                             isAny = True
                 if isExit and isAny:
                     return sr,sc,w
-    return -1,-1,-1
+    return -1
 
 def rotate(arr,si,sj,w): # 내구도 1 감소
     narr = [x[:] for x in arr]
