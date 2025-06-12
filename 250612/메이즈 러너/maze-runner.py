@@ -1,28 +1,3 @@
-'''
-미로 구성
-    빈칸 = 0
-    벽 = 1~9 회전시 1감소
-    출구
-
-while K초 동안:
-    **모든 참가자들이 탈출시 종료**
-    1. 참가자 이동 1칸씩
-        상하좌우,벽 없는 곳으로 이동
-        출구가 가까워지는 방향
-        상하 우선
-    2. 미로 회전
-        1) 정사각형 잡기
-            출구와 한명 이상의 참가자 포함.  v
-            r작 c작   v
-        2) 90도 회전.  v
-            내구도-=1  v
-
-출력 : 모든 참가자들의 이동 거리 합, 출구 좌표
-
-출구 = -11
-사람 = -1로 표현. -2,-3은 겹친는 것
-'''
-
 N,M,K = map(int, input().split()) #사람 최대 10명
 arr = [list(map(int,input().split())) for _ in range(N)]
 units = [list(map(int,input().split())) for _ in range(M)]
@@ -52,12 +27,12 @@ def move(arr,ei,ej):
         for di,dj in ((-1,0),(1,0),(0,-1),(0,1)):
             ni,nj = ci+di,cj+dj
             if (ni,nj)==(ei,ej):
-                mv_cnt+=narr[ci][cj]
+                mv_cnt+=arr[ci][cj]
                 narr[ci][cj]=0
                 break
             elif 0<=ni<N and 0<=nj<N and narr[ni][nj]<=0 and dist>abs(ni-ei)+abs(nj-ej):
-                mv_cnt+=narr[ci][cj]
-                narr[ni][nj]+=narr[ci][cj]
+                mv_cnt+=arr[ci][cj]
+                narr[ni][nj]+=arr[ci][cj]
                 narr[ci][cj]=0
                 break
     return mv_cnt, narr
