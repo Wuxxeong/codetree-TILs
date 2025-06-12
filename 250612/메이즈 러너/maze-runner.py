@@ -42,7 +42,7 @@ def find_units(arr):
                 units.append((i, j))
     return units
 
-def move1(arr,ei,ej):
+def move(arr,ei,ej):
     mv_cnt = 0
     units = find_units(arr)
 
@@ -61,26 +61,6 @@ def move1(arr,ei,ej):
                 narr[ni][nj]+=narr[ci][cj]
                 narr[ci][cj]=0
 
-                break
-    return mv_cnt, narr
-
-def move(arr,units,ei,ej):
-    mv_cnt = 0
-    narr = [x[:] for x in arr]
-    # units이 어디서 어디로?
-    for idx in range(M):
-        if not alive[idx]: continue
-        ci,cj = units[idx][0]-1, units[idx][1]-1
-        dist = abs(ci-ei)+abs(cj-ej)
-        for di,dj in ((-1,0),(1,0),(0,-1),(0,1)):
-            ni,nj = ci+di, cj+dj
-            if 0<=ni<N and 0<=nj<N and narr[ni][nj]<=0 and dist>abs(ni-ei)+abs(nj-ej):
-                if (ni,nj)==(ei,ej):
-                    alive[idx]=0
-                else:
-                    narr[ni][nj] -= 1
-                narr[ci][cj]=0
-                mv_cnt+=1
                 break
     return mv_cnt, narr
 
@@ -116,7 +96,7 @@ def rotate(arr,si,sj,w): # 내구도 1 감소
 cnt = 0 # 이동 횟수
 for k in range(K):
     # [1] 참가자 이동
-    t, arr = move1(arr,ei,ej)
+    t, arr = move(arr,ei,ej)
     cnt += t
     u = find_units(arr)
     if len(u)==0:
